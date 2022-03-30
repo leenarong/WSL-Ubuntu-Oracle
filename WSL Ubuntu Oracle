@@ -1,0 +1,58 @@
+INSTALL AMP ON WSL (UBUNTU LINUX 20.04)
+1. sudo apt update && sudo apt upgrade
+2. sudo apt install apache2 -y
+3. sudo service apache2 start
+4. sudo apt install mysql-server -y
+5. sudo service mysql start
+6. sudo service mysql stop
+7. sudo usermod -d /var/lib/mysql/ mysql
+8. sudo service mysql start
+9. sudo mysql_secure_installation
+10. sudo apt install libapache2-mod-php php-mysql php-mbstring php-xml php-json php-curl php-zip -y 
+11. sudo service apache2 restart
+12. sudo vi /var/www/html/phpinfo.php
+13. <?php phpinfo(); ?>
+14. sudo service apache2 restart
+15. sudo apt install net-tools
+16. sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
+
+
+INSTALL NMM ON WSL (ORACLE LINUX 8.5)
+1. sudo yum update && sudo yum upgrade
+2. curl -sL https://rpm.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
+3. cat /tmp/nodesource_setup.sh
+4. sudo bash /tmp/nodesource_setup.sh
+5. sudo yum install nodejs
+6. node -v
+7. npm -v
+8. sudo vi /etc/yum.repos.d/mongodb-org-5.0.repo
+    [mongodb-org-5.0]
+    name=MongoDB Repository
+    baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/5.0/x86_64/
+    gpgcheck=1
+    enabled=1
+    gpgkey=https://www.mongodb.org/static/pgp/server-5.0.asc
+9. sudo yum install -y mongodb-org
+10. /var/lib/mongo (the data directory)
+    /var/log/mongodb (the log directory)
+11. sudo mkdir -p /data/db
+12. sudo chown -R `id -un` /data/db
+13. mongod --version
+14. sudo vi /etc/init.d/mongodb
+15. https://github.com/mongodb/mongo/blob/master/rpm/init.d-mongod
+16. sudo chmod +x /etc/init.d/mongodb
+17. sudo service mongodb restart
+18. mongo
+19. db.version()
+20. curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash
+21. sudo yum install MariaDB-server MariaDB-client MariaDB-backup
+22. sudo vi /etc/my.cnf.d/client.cnf
+    [client]
+    port = 3307
+23. sudo vi /etc/my.cnf.d/server.dnf
+    [mysqld]
+    port = 3307
+23. sudo cp /usr/share/mysql/mysql.server /etc/init.d/mariadb
+24. sudo chmod +x /etc/init.d/mariadb
+25. sudo service mariadb restart
+26. sudo mariadb-secure-installation
